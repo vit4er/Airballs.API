@@ -1,0 +1,22 @@
+/*.form-group .validate-message {*/
+/*  color:#dd0000;*/
+/*}*/
+/*.form-group input.ng-valid, select.ng-valid, textarea.ng-valid {*/
+/*  border-left: 5px solid #00bb00;*/
+/*}*/
+/*.form-group input.ng-invalid, select.ng-invalid, textarea.ng-invalid {*/
+/*  border-left: 5px solid #dd0000;*/
+/*}*/
+.form-group ng-select.is-invalid > .ng-select-container {
+  border-left: 5px solid #dd0000;
+}
+.form-group ng-select.ng-valid > .ng-select-container {
+  border-left: 5px solid #00bb00;
+}
+
+.is-invalid {
+  border-left: 5px solid #dd0000;
+}
+.is-valid {
+  border-left: 5px solid #00bb00;
+}

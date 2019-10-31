@@ -1,0 +1,121 @@
+<div class="row">
+  <p-table
+    #tbl
+    [columns]="columns"
+    [value]="balloons"
+    selectionMode="single"
+    sortMode="multiple"
+    [lazyLoadOnInit]="true"
+    [lazy]="true"
+    (onLazyLoad)="lazyLoad($event)"
+    [loading]="loading"
+    [showLoader]="true"
+    [multiSortMeta]="multiSortMeta"
+    [(selection)]="selectedBalloon"
+    [paginator]="true"
+    [rows]="rows"
+    [totalRecords]="totalRecords"
+    [responsive]="true"
+    [resizableColumns]="true"
+    dataKey="id">
+    <ng-template pTemplate="header" let-column>
+      <tr>
+        <th pResizableColumn>
+          ##
+        </th>
+        <th pSortableColumn="name" pResizableColumn>
+          Наименование
+          <p-sortIcon field="name"></p-sortIcon>
+        </th>
+        <th pResizableColumn>
+          Описание
+        </th>
+        <th pSortableColumn="colorCode" pResizableColumn>
+          Цвет
+          <p-sortIcon field="colorCode"></p-sortIcon>
+        </th>
+        <th pSortableColumn="price" pResizableColumn>
+          Цена, руб
+          <p-sortIcon field="price"></p-sortIcon>
+        </th>
+        <th pSortableColumn="quantity" pResizableColumn>
+          Наличие, шт.
+          <p-sortIcon field="quantity"></p-sortIcon>
+        </th>
+      </tr>
+      <tr>
+        <th></th>
+        <th>
+          <input
+            #nameFilter
+            pInputText type="text"
+            (input)="tbl.filter($event.target.value,'name', 'contains')">
+        </th>
+        <th></th>
+        <th style="overflow: visible">
+          <p-multiSelect
+            [style]="{'width': '100%'}"
+            [options]="colors"
+            defaultLabel="Все цвета"
+            (onChange)="tbl.filter($event.value, 'colorCode', 'in')"
+          >
+          </p-multiSelect>
+        </th>
+        <th></th>
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-balloon let-columns="columns">
+      <tr [pSelectableRow]="balloon">
+        <td class="ui-resizable-column">
+          {{balloon.id}}
+        </td>
+        <td class="ui-resizable-column">
+          {{balloon.name}}
+        </td>
+        <td class="ui-resizable-column">
+          {{balloon.description}}
+        </td>
+        <td class="ui-resizable-column">
+          <i class="fas fa-palette mr-2" [ngStyle]="{color:balloon.colorCode}"></i>
+          {{balloon.color['name']}}
+        </td>
+        <td style="text-align: end" class="ui-resizable-column">
+          {{balloon.price }}
+        </td>
+        <td style="text-align: end" class="ui-resizable-column">
+          {{balloon.quantity}}
+        </td>
+      </tr>
+    </ng-template>
+    <!--            >-->
+    <!--    <ng-template pTemplate="header">-->
+    <!--      <div class="ui-helper-clearfix">-->
+    <!--        <span>Hello!</span>-->
+    <!--      </div>-->
+    <!--    </ng-template>-->
+  </p-table>
+  <div class="mt-4 d-flex col-12 p-0">
+    <div class="mr-auto">
+      <button class="btn btn-success mr-2" type="button" (click)="addBalloonClick()" id="addBalloonBtn">
+        <i class="fas fa-plus mr-2"></i>
+        Добавить
+      </button>
+      <button class="btn btn-primary mr-2"
+              type="button"
+              (click)="updBalloonClick()"
+              [disabled]="!selectedBalloon"
+              id="updBalloonBtn">
+        <i class="fas fa-edit mr-2"></i>
+        Изменить
+      </button>
+      <button class="btn btn-danger mr-2" type="button" (click)="delBalloonClick()" [disabled]="!selectedBalloon"
+              id="delBalloonBtn">
+        <i class="fas fa-trash-alt mr-2"></i>
+        Удалить
+      </button>
+    </div>
+    <div>
+    </div>
+  </div>
+</div>

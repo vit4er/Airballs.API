@@ -1,0 +1,90 @@
+<div class="row">
+  <div class="col-md-6 offset-md-3">
+    <form [formGroup]="balloonForm" (ngSubmit)="onSubmit()">
+      <!-- Ввод наименования -->
+      <div class="form-group">
+        <label for="name">Наименование</label>
+        <input
+          class="form-control"
+          [class.is-invalid]="balloonForm.controls['name'].invalid && balloonForm.controls['name'].touched"
+          [class.is-valid]="balloonForm.controls['name'].valid && balloonForm.controls['name'].touched"
+          type="text"
+          id="name"
+          formControlName="name">
+        <div *ngIf="balloonForm.controls['name'].invalid && balloonForm.controls['name'].touched">
+          <small style="color:#dd0000">Необходимо ввести наименование!</small>
+        </div>
+      </div>
+      <!-- Ввод описания -->
+      <div class="form-group">
+        <label for="description">Описание</label>
+        <textarea
+          class="form-control"
+          [class.is-invalid]="balloonForm.controls['description'].invalid && balloonForm.controls['description'].touched"
+          [class.is-valid]="balloonForm.controls['description'].valid && balloonForm.controls['description'].touched"
+          rows="3"
+          id="description"
+          name="description"
+          formControlName="description">
+        </textarea>
+        <div *ngIf="balloonForm.controls['description'].invalid && balloonForm.controls['description'].touched">
+          <small style="color:#dd0000">Необходимо ввести наименование!</small>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="selectColor">Цвет</label>
+        <ng-select
+          #selectColor
+          id="selectColor"
+          labelForId="selectColor"
+          formControlName="colorCode">
+          <ng-option *ngFor="let color of colors" [value]="color['code']">
+            <i class="fas fa-palette mx-3" [ngStyle]="{color: color.code}"></i>
+            {{color.name}}
+          </ng-option>
+        </ng-select>
+        <div *ngIf="balloonForm.controls['colorCode'].invalid && balloonForm.controls['colorCode'].touched">
+          <small style="color:#dd0000">Необходимо указать цвет!</small>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="price">Цена</label>
+        <input
+          type="number"
+          id="price"
+          class="form-control"
+          [class.is-invalid]="balloonForm.controls['price'].invalid && balloonForm.controls['price'].touched"
+          [class.is-valid]="balloonForm.controls['price'].valid && balloonForm.controls['price'].touched"
+          formControlName="price"
+          step="0.01">
+        <div *ngIf="balloonForm.controls['price'].invalid && balloonForm.controls['price'].touched">
+          <small style="color:#dd0000">Необходимо ввести цену!</small>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="quantity">Количество в магазине</label>
+        <input
+          type="number"
+          step="1"
+          id="quantity"
+          class="form-control"
+          [class.is-invalid]="balloonForm.controls['quantity'].invalid && balloonForm.controls['quantity'].touched"
+          [class.is-valid]="balloonForm.controls['quantity'].valid && balloonForm.controls['quantity'].touched"
+          formControlName="quantity">
+        <div *ngIf="balloonForm.controls['quantity'].invalid && balloonForm.controls['quantity'].touched">
+          <small style="color:#dd0000">Необходимо ввести количество в магазине!</small>
+        </div>
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-success mr-2">
+          <i class="fa fa-check mr-2"></i>
+          Сохранить
+        </button>
+        <button id="btnExit" type="button" class="btn btn-danger" (click)="exitForm()">
+          <i class="fa fa-ban mr-2"></i>
+          Отменить
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

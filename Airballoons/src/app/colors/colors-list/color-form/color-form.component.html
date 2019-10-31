@@ -1,0 +1,66 @@
+<form (ngSubmit)="formSubmit()" [formGroup]="formColor">
+  <div class="row">
+    <div class="col-6 offset-3">
+      <div class="form-group">
+        <label for="colorNameInput">Наименование</label>
+        <input
+          id="colorNameInput"
+          type="text"
+          class="form-control"
+          [class.is-invalid]="formColor.controls['name'].invalid && formColor.controls['name'].touched"
+          [class.is-valid]="formColor.controls['name'].valid && formColor.controls['name'].touched"
+          formControlName="name">
+        <div *ngIf="formColor.controls['name'].invalid && formColor.controls['name'].touched">
+          <small style="color:#bb0000">Необходимо ввести наименование цвета!</small>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="colorCodeInput">Код цвета в формате #RRGGBB</label>
+        <div class="input-group">
+          <input
+            id="colorCodeInput"
+            type="text"
+            class="form-control"
+            [class.is-invalid]="formColor.controls['code'].invalid && formColor.controls['code'].touched"
+            [class.is-valid]="formColor.controls['code'].valid && formColor.controls['code'].touched"
+            aria-label="Выберите цвет..."
+            aria-describedby="colorSelect"
+            formControlName="code">
+          <div class="input-group-append">
+            <label id="colorSelect" for="hiddenSelect" class="btn btn-primary">
+              <i class="fa fa-palette"></i>
+              <input #picker class="form-control" id="hiddenSelect" (change)="newColorSelected($event)"
+                     type="color" hidden>
+            </label>
+          </div>
+        </div>
+        <div *ngIf="formColor.controls['code'].invalid && formColor.controls['code'].touched">
+          <small style="color:#bb0000">Необходимо ввести код цвета!</small>
+        </div>
+      </div>
+<!--      <div class="form-group">-->
+<!--        <label for="colorCodeInput">Код цвета в формате #RRGGBB</label>-->
+<!--        <input-->
+<!--          id="colorCodeInput"-->
+<!--          type="text"-->
+<!--          class="form-control"-->
+<!--          [class.is-invalid]="formColor.controls['code'].invalid && formColor.controls['code'].touched"-->
+<!--          [class.is-valid]="formColor.controls['code'].valid && formColor.controls['code'].touched"-->
+<!--          formControlName="code">-->
+<!--        <div *ngIf="formColor.controls['code'].invalid && formColor.controls['code'].touched">-->
+<!--          <small style="color:#bb0000">Необходимо ввести код цвета!</small>-->
+<!--        </div>-->
+<!--      </div>-->
+      <div>
+        <button type="submit" class="btn btn-success mr-2" [disabled]="formColor.invalid">
+          <i class="fas fa-plus mr-2"></i>
+          Сохранить
+        </button>
+        <button type="button" class="btn btn-danger" (click)="exitForm()">
+          <i class="fas fa-ban mr-2"></i>
+          Отменить
+        </button>
+      </div>
+    </div>
+  </div>
+</form>
